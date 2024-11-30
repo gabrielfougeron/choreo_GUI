@@ -12,11 +12,14 @@ def sort_dirs_list_inplace(the_dict):
         
 default_gallery_root = os.path.join(os.path.dirname(__file__))
 
-def install_official_gallery(gallery_root = default_gallery_root):
+def install_official_gallery(gallery_root = default_gallery_root, overwrite=False):
     
     gallery_path = os.path.join(gallery_root, 'choreo-gallery')
     if os.path.isdir(gallery_path):
-        shutil.rmtree(gallery_path)
+        if overwrite:
+            shutil.rmtree(gallery_path)
+        else:
+            return
         
     if os.path.isdir('tmp'):
         shutil.rmtree('tmp')
@@ -25,6 +28,7 @@ def install_official_gallery(gallery_root = default_gallery_root):
     os.chdir('tmp')
     
     subprocess.run(["git","clone", "https://github.com/gabrielfougeron/choreo_gallery.git"])
+    os.makedirs(gallery_path)
     shutil.move('choreo_gallery/choreo-gallery', gallery_path)
     
     os.chdir(os.pardir)

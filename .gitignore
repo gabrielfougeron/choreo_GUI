@@ -9,6 +9,7 @@
 *.json
 *.whl
 .vscode/
+dist/**
 choreo_GUI/choreo-gallery/**
 choreo_GUI.egg-info/**
 !choreo_GUI/assets/**
