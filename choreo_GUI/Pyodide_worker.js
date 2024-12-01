@@ -15,8 +15,12 @@ function RedirectPythonPrint(txt) {
 
 var AskForNext;
 
-// load pyodide.js
-importScripts("assets/pyodide/pyodide.js");
+importScripts("assets/js/LoadLocalOrCDN.js")
+if (IsLocal) {
+    importScripts("assets/pyodide/pyodide.js")
+} else {
+    importScripts("https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js")
+}
 
 async function loadPyodideAndPackages() {
 
@@ -32,7 +36,6 @@ async function loadPyodideAndPackages() {
     RedirectPythonPrint("Importing packages ...")
     
     await pyodide.loadPackage([
-        // "micropip",
         "matplotlib",
         "networkx",
         "mpmath",

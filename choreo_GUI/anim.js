@@ -116,8 +116,16 @@ var MassArray = [1.]
 var ChargeArray = [1.]
 var LoopTargets = []
 
+// loadffmpeg.then(() => {
+// 	const { createFFmpeg , fetchFile  } = FFmpeg
+// 	const ffmpeg = createFFmpeg()
+// })
+
 const { createFFmpeg , fetchFile  } = FFmpeg
 const ffmpeg = createFFmpeg()
+
+
+
 
 function AjaxGet(foldername){ return $.ajax({ url: foldername})}
 

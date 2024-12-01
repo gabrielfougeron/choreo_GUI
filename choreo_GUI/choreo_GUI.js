@@ -2586,7 +2586,9 @@ async function LoadConfigFromFile(filename){
 
 }
 
-function InitPage(){
+async function InitPage(PromiseArray = []){
+
+    await Promise.all(PromiseArray)
 
     const hash_url = window.location.hash
 
