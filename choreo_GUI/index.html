@@ -32,19 +32,6 @@ LoadLocalOrCDN("assets/js/tex-mml-chtml.js", "https://cdn.jsdelivr.net/npm/mathj
 <link rel="stylesheet" href="assets/css/jquery-ui-1.10.2.custom.min.css" type="text/css">
 <link rel="stylesheet" href="assets/css/choreo_anims.css" type="text/css">
 
-<!-- <script>
-jquery_loaded = LoadLocalOrCDN("assets/js/jquery.min.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js")
-jqueryui_loaded = LoadLocalOrCDN("assets/js/jquery-ui.min.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js", [jquery_loaded])
-</script>
-<script>
-Promise.all([jquery_loaded, jqueryui_loaded]).then( () => {
-ultbuttons_loaded = LoadLocalOrCDN("assets/js/ultbuttons1.1.min.js", "", [jqueryui_loaded])
-touch_punch_loaded = LoadLocalOrCDN("assets/js/jquery.ui.touch-punch.min.js", "", [jqueryui_loaded])
-roundslider_loaded = LoadLocalOrCDN("assets/js/roundslider.min.js", "", [jqueryui_loaded])
-})
-</script> -->
-
-
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/jquery-ui.min.js"></script>
 <script src="assets/js/jquery.ui.touch-punch.min.js">//makes ui elements touch enabled</script>
@@ -64,11 +51,6 @@ var AskForNext = new Uint8Array(AskForNextBuffer);
 pyodide_worker.postMessage({ funname: "setAskForNextBuffer",args:AskForNextBuffer });
 AskForNext[0] = 0;
 </script>
-
-<!-- <script>
-var loadffmpeg = LoadLocalOrCDN("assets/js/ffmpeg.min.js", "https://cdnjs.cloudflare.com/ajax/libs/ffmpeg/0.12.10/umd/ffmpeg.min.js")
-LoadLocalOrCDN("anim.js","",[loadffmpeg],true)
-</script> -->
 
 <script src="assets/js/ffmpeg.min.js"></script>
 <script src="anim.js" type="text/javascript"></script>
@@ -704,8 +686,9 @@ window.addEventListener("drop",function(e){
           <td style="border:none; max-width:200px; text-align: center;">
             <select class="w3-select" id="fft_backend" style="text-align: center;"> 
               <option value="scipy">Scipy</option>
-              <option value="mkl" selected>MKL</option>
+              <option value="mkl">MKL</option>
               <option value="fftw">FFTW</option>
+              <option value="ducc" selected>DUCC</option>
             </select>
           </td>
         </tr>
