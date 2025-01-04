@@ -5,21 +5,28 @@ import argparse
 from choreo_GUI import default_gallery_root, install_official_gallery
 from choreo_GUI import serve_GUI
 
-def GUI(cli_args):
+GUI_parser = argparse.ArgumentParser(
+    description = """ Launches the GUI server.
     
-    parser = argparse.ArgumentParser(
-        description = 'Launches choreo GUI')
+    Access the GUI by typing `http://127.0.0.1:8000 <http://127.0.0.1:8000>`_ in your favorite internet browser after launching the server.
+    
+    """,
+    prog = 'choreo_GUI',
+)
 
-    default_Workspace = './'
-    parser.add_argument(
-        '-f', '--foldername',
-        default = default_gallery_root,
-        dest = 'gallery_root',
-        help = f'Gallery root.',
-        metavar = '',
-    )
+default_Workspace = './'
 
-    args = parser.parse_args(cli_args)
+GUI_parser.add_argument(
+    '-f', '--foldername',
+    default = default_gallery_root,
+    dest = 'gallery_root',
+    help = f'Gallery root.',
+    metavar = '',
+)
+
+def GUI(cli_args):
+
+    args = GUI_parser.parse_args(cli_args)
     
     if args.gallery_root != default_gallery_root:
         raise NotImplementedError
