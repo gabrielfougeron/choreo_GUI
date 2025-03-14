@@ -15,16 +15,21 @@ default_gallery_root = os.path.join(os.path.dirname(__file__))
 def install_official_gallery(gallery_root = default_gallery_root, overwrite=False, TryOffline = True):
 
     gallery_dest_path = os.path.join(gallery_root, 'choreo-gallery')
+    
     if os.path.isdir(gallery_dest_path):
         if overwrite:
             shutil.rmtree(gallery_dest_path)
         else:
+            gallery_descriptor_filename = os.path.join(gallery_dest_path, "gallery_descriptor.json")
+            if not os.path.isfile(gallery_descriptor_filename):
+                make_gallery_descriptor(gallery_root)
             return
     
     if TryOffline:
  
         gallery_src_path = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "choreo-gallery", "choreo-gallery")
         if os.path.isdir(gallery_src_path):
+            
             os.makedirs(gallery_dest_path)       
             shutil.copytree(gallery_src_path, gallery_dest_path, dirs_exist_ok=True)
             make_gallery_descriptor(gallery_root)
