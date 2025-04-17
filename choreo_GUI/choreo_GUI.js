@@ -2497,17 +2497,17 @@ function CopyCustomURLToClipboard() {
 
 function startRecording(Duration) {
     const chunks = [] // here we will store our recorded media chunks (Blobs)
-    const stream = mainCanvas.captureStream() // grab our canvas MediaStream
-    const video_potions = {
+    const stream = mainCanvas.captureStream(FPS_estimation) // grab our canvas MediaStream
+    const video_options = {
         'audioBitsPerSecond' : 0,
-        'videoBitsPerSecond' : 1024*1024*8, // Increase default quality
+        // 'videoBitsPerSecond' : 1024*1024*8, // Increase default quality
     }
-    const rec = new MediaRecorder(stream,video_potions) // init the recorder
+    const rec = new MediaRecorder(stream, video_options) // init the recorder
     // every time the recorder has new data, we will store it in our array
     rec.ondataavailable = e => chunks.push(e.data)
     // only when the recorder stops, we construct a complete Blob from all the chunks
 
-    const export_options = { mimeType: 'video/webm;codecs=h264' };
+    const export_options = {mimeType: 'video/webm;codecs=h264' };
 
     rec.onstop = e => exportVid(new Blob(chunks, export_options))
     rec.start()

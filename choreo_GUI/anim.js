@@ -830,10 +830,9 @@ function canvasApp() {
 		var x,y;
 		var Pixx,Pixy;
 
-		var il,ib,ilb,nlb;
-		var p;
+		var il,ilb,nlb;
 
-        for ( il = 0 ; il < PlotInfo['nloop'] ; il++){
+        for (il = 0 ; il < PlotInfo['nloop'] ; il++){
 
 			nlb =  PlotInfo['loopnb'][il];
 			
@@ -841,8 +840,10 @@ function canvasApp() {
 
 				if (PlotInfo['RequiresLoopDispUn'][il][ilb]) {
 
-					ib = PlotInfo['Targets'][il][ilb];
-					p = particles[ib];
+					const RotMat = PlotInfo['SpaceRotsUn'][il][ilb]
+					const ib = PlotInfo['Targets'][il][ilb];
+					const p = particles[ib];
+
 					trailLayerContext.lineWidth = p.PartRelSize * base_trailWidth ;
 
 					if (color == "particle") {
@@ -855,8 +856,8 @@ function canvasApp() {
 					xl = Pos.data[  2*il    * n_pos] ;
 					yl = Pos.data[ (2*il+1) * n_pos] ;
 
-					x = PlotInfo['SpaceRotsUn'][il][ilb][0][0] * xl + PlotInfo['SpaceRotsUn'][il][ilb][0][1] * yl ;
-					y = PlotInfo['SpaceRotsUn'][il][ilb][1][0] * xl + PlotInfo['SpaceRotsUn'][il][ilb][1][1] * yl ;
+					x = RotMat[0][0] * xl + RotMat[0][1] * yl ;
+					y = RotMat[1][0] * xl + RotMat[1][1] * yl ;
 
 					Pixx = xPixRate*(x - xMin) ;
 					Pixy = yPixRate*(y - yMax) ;
@@ -870,8 +871,8 @@ function canvasApp() {
 						xl = Pos.data[ i_pos +  2*il    * n_pos] ;
 						yl = Pos.data[ i_pos + (2*il+1) * n_pos] ;
 
-						x = PlotInfo['SpaceRotsUn'][il][ilb][0][0] * xl + PlotInfo['SpaceRotsUn'][il][ilb][0][1] * yl ;
-						y = PlotInfo['SpaceRotsUn'][il][ilb][1][0] * xl + PlotInfo['SpaceRotsUn'][il][ilb][1][1] * yl ;
+						x = RotMat[0][0] * xl + RotMat[0][1] * yl ;
+						y = RotMat[1][0] * xl + RotMat[1][1] * yl ;
 		
 						Pixx = xPixRate*(x - xMin) ;
 						Pixy = yPixRate*(y - yMax) ;
@@ -884,8 +885,8 @@ function canvasApp() {
 					xl = Pos.data[  2*il    * n_pos] ;
 					yl = Pos.data[ (2*il+1) * n_pos] ;
 
-					x = PlotInfo['SpaceRotsUn'][il][ilb][0][0] * xl + PlotInfo['SpaceRotsUn'][il][ilb][0][1] * yl ;
-					y = PlotInfo['SpaceRotsUn'][il][ilb][1][0] * xl + PlotInfo['SpaceRotsUn'][il][ilb][1][1] * yl ;
+					x = RotMat[0][0] * xl + RotMat[0][1] * yl ;
+					y = RotMat[1][0] * xl + RotMat[1][1] * yl ;
 
 					Pixx = xPixRate*(x - xMin) ;
 					Pixy = yPixRate*(y - yMax) ;
@@ -903,29 +904,20 @@ function canvasApp() {
 
 	function DrawAllPaths_new(color="particle") {
 
-		var xl,yl
-		var x,y
-		var Pixx,Pixy
-
-		var p
-		var io, ib, iint, isegm
-
-		var RotMat
-
 		var segm_store = Pos.shape[1]
 		var segm_size = PlotInfo["segm_size"]
 		var nint_min = PlotInfo['nint_min']
 
-		for (ib=0; ib<PlotInfo['nbody']; ib++) {
+		for (var ib=0; ib<PlotInfo['nbody']; ib++) {
 
-			for (iint=0; iint<nint_min; iint++) {
+			for (var iint=0; iint<nint_min; iint++) {
 
 				if (PlotInfo['SegmRequiresDisp'][ib][iint]) {
 					
-					isegm = PlotInfo['bodysegm'][ib][iint]
-					i = segm_store * isegm * 2
+					const isegm = PlotInfo['bodysegm'][ib][iint]
+					var i = segm_store * isegm * 2
 
-					p = particles[ib];
+					const p = particles[ib];
 					trailLayerContext.lineWidth = p.PartRelSize * base_trailWidth 
 
 					if (color == "particle") {
@@ -934,19 +926,19 @@ function canvasApp() {
 						trailLayerContext.strokeStyle = color
 					}
 
-					RotMat = PlotInfo['InterSegmSpaceRot'][ib][iint]
+					const RotMat = PlotInfo['InterSegmSpaceRot'][ib][iint]
 
 					// Super ugly
-					xl = Pos.data[i]
+					var xl = Pos.data[i]
 					i += 1
-					yl = Pos.data[i] 
+					var yl = Pos.data[i] 
 					i += 1
 
-					x = RotMat[0][0] * xl + RotMat[0][1] * yl 
-					y = RotMat[1][0] * xl + RotMat[1][1] * yl 
+					var x = RotMat[0][0] * xl + RotMat[0][1] * yl 
+					var y = RotMat[1][0] * xl + RotMat[1][1] * yl 
 
-					Pixx = xPixRate*(x - xMin) 
-					Pixy = yPixRate*(y - yMax) 
+					var Pixx = xPixRate*(x - xMin) 
+					var Pixy = yPixRate*(y - yMax) 
 
 					trailLayerContext.beginPath()
 					trailLayerContext.moveTo(Pixx, Pixy)
@@ -972,9 +964,9 @@ function canvasApp() {
 					if (segm_size == segm_store){
 						jint = (iint + 1) % nint_min
 
-						RotMat = PlotInfo['InterSegmSpaceRot'][ib][jint]
-						isegm = PlotInfo['bodysegm'][ib][jint]
-						i = segm_store * isegm * 2
+						const RotMatp = PlotInfo['InterSegmSpaceRot'][ib][jint]
+						const isegmp = PlotInfo['bodysegm'][ib][jint]
+						i = segm_store * isegmp * 2
 
 						// Super ugly
 						xl = Pos.data[i]
@@ -982,8 +974,8 @@ function canvasApp() {
 						yl = Pos.data[i] 
 						i += 1
 
-						x = RotMat[0][0] * xl + RotMat[0][1] * yl 
-						y = RotMat[1][0] * xl + RotMat[1][1] * yl 
+						x = RotMatp[0][0] * xl + RotMatp[0][1] * yl 
+						y = RotMatp[1][0] * xl + RotMatp[1][1] * yl 
 
 						Pixx = xPixRate*(x - xMin) 
 						Pixy = yPixRate*(y - yMax) 
