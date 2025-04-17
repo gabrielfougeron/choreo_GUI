@@ -121,7 +121,7 @@ var LoopTargets = []
 // 	const ffmpeg = createFFmpeg()
 // })
 
-const { createFFmpeg , fetchFile  } = FFmpeg
+const { createFFmpeg , fetchFile } = FFmpeg
 const ffmpeg = createFFmpeg()
 
 

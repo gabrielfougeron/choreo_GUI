@@ -2529,7 +2529,9 @@ async function exportVid(blob) {
     }
 
     ffmpeg.FS('writeFile', webmname, new Uint8Array(await blob.arrayBuffer()));
-    await ffmpeg.run('-i', webmname, mp4mname);
+    await ffmpeg.run('-i', webmname, "-c:v", "libx264", "-crf", "18", mp4mname);
+    
+    
     const data = ffmpeg.FS('readFile', mp4mname);
 
     const vid = document.createElement('video')
