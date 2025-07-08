@@ -207,7 +207,7 @@ window.addEventListener("drop",function(e){
         </tr>
         <tr>
           <td style="border:none;" >
-            <button class="w3-bar-item w3-button w3-hover-pale-red" id="CopyCustomURL_btn" style="text-align: center" onclick="DownloadVideo()">Download Video</button>
+            <button class="w3-bar-item w3-button w3-hover-pale-red" id="DLVideo_btn" style="text-align: center" onclick="DownloadVideo()">Download Video</button>
           </td>
           <td style="border:none; max-width:400px; " id="VideoMessage"></td>
         </tr>
@@ -302,7 +302,7 @@ window.addEventListener("drop",function(e){
     </table>
   </div>
   <div class="w3-container MainTab Phys_Random" style="display:none">
-    <h2>Initial state randomization </h2>
+    <h2>Initial state randomization for the spectral solver </h2>
     <img src="img/Random_init_description.svg" alt="Description of the random initial state" height="360px" width="480px">
     <br>
     <div style = "max-width:350px; ">
@@ -337,6 +337,28 @@ window.addEventListener("drop",function(e){
           </td>
           <td style="border:none; max-width:90px; ">
             <input id ="input_k_max" type="number" value="50" min="1" style="text-align: center;">
+          </td>
+        </tr>
+      </table>
+    </div>
+    <h2>Initial state randomization for the Runge-Kutta solver </h2>
+    <br>
+    <div style = "max-width:350px; ">
+      <table style="font-size:16px; border:none; display:table">
+        <tr>
+          <td style="border:none;" >
+            <label for="init_pos_BB_size">Size of position bounding box</label>
+          </td>
+          <td style="border:none; max-width:90px; ">
+            <input id ="init_pos_BB_size" type="text" value="1." style="text-align: center;">
+          </td>
+        </tr>
+        <tr>
+          <td style="border:none;" >
+            <label for="init_mom_BB_size">Size of momentum bounding box</label>
+          </td>
+          <td style="border:none; max-width:90px; ">
+            <input id ="init_mom_BB_size" type="text" value="10." style="text-align: center;">
           </td>
         </tr>
       </table>
@@ -488,6 +510,60 @@ window.addEventListener("drop",function(e){
     <div style = "max-width:400px; ">
       <table style="font-size:16px; border:none; display:table">
         <tr>
+          <td style="border:none;" ><label for="SolverType_menu">Solver type</label></td>
+          <td style="border:none;text-align: center;">
+            <select class="w3-select" id="SolverType_menu"  name="SolverType_menu" style="text-align: center;"> 
+              <option value="Spectral" selected>Spectral</option>
+              <option value="RK">Runge-Kutta</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="border:none;" ><label for="RK_method">Runge-Kutta method</label></td>
+          <td style="border:none;text-align: center;">
+            <select class="w3-select" id="RK_method"  name="RK_method" style="text-align: center;"> 
+              <option value="SymplecticEuler">Explicit Symplectic Euler</option>
+              <option value="StormerVerlet">Explicit Störmer-Verlet</option>
+              <option value="McAte2">Explicit McLachlan-Atela of order 2</option>
+              <option value="Ruth3">Explicit Ruth of order 3</option>
+              <option value="McAte3">Explicit McLachlan-Atela of order 3</option>
+              <option value="Ruth4">Explicit Ruth of order 4</option>
+              <option value="Ruth4Rat">Explicit rational Ruth of order 4</option>
+              <option value="McAte4">Explicit McLachlan-Atela of order 4</option>
+              <option value="CalvoSanz4">Explicit Calvo-Sanz-Serna of order 4</option>
+              <option value="McAte5">Explicit McLachlan-Atela of order 5</option>
+              <option value="Yoshida6A">Explicit Yoshida A of order 6</option>
+              <option value="Yoshida6B">Explicit Yoshida B of order 6</option>
+              <option value="Yoshida6C">Explicit Yoshida C of order 6</option>
+              <option value="KahanLi6">Explicit Kahan-Li of order 6</option>
+              <option value="McLahan8">Explicit McLachlan of order 8</option>
+              <option value="KahanLi8">Explicit Kahan-Li of order 8</option>
+              <option value="Yoshida8A">Explicit Yoshida A of order 8</option>
+              <option value="Yoshida8B">Explicit Yoshida B of order 8</option>
+              <option value="Yoshida8C">Explicit Yoshida C of order 8</option>
+              <option value="Yoshida8D">Explicit Yoshida D of order 8</option>
+              <option value="Yoshida8E">Explicit Yoshida E of order 8</option>
+              <option value="SofSpa10">Explicit Sofroniou-Spaletta E of order 10</option>
+              <option value="Gauss" selected>Implicit Gauss</option>
+              <option value="Radau_IB">Implicit Radau IB</option>
+              <option value="Radau_IIB">Implicit Radau IIB</option>
+              <!-- <option value="Radau_IIB">Implicit Radau IIB</option> -->
+              <option value="Lobatto_IIIA">Implicit Lobatto IIIA-IIIB</option>
+              <option value="Lobatto_IIIC">Implicit Lobatto IIIC-IIIC*</option>
+              <option value="Lobatto_IIID">Implicit Lobatto IIID</option>
+              <option value="Lobatto_IIIS">Implicit Lobatto IIIS</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="border:none"><h>Number of implicit RK steps</h></td>
+          <td style="border:none; max-width:100px; "><input type="number" id="rk_nsteps" value="10" style="text-align: center;"></td>
+        </tr>
+        <tr>
+          <td style="border:none"><h>Position/momentum scaling</h></td>
+          <td style="border:none; max-width:100px; "><input type="text" id="pos_mom_scaling" value="1." style="text-align: center;" ></td>
+        </tr>
+        <tr>
           <td style="border:none;" ><label for="checkbox_exactJ">Use exact jacobian</label></td>
           <td style="border:none;text-align: center;"><input id ="checkbox_exactJ" class="w3-check" type="checkbox" style="vertical-align: super" checked></td>
         </tr>
@@ -620,7 +696,7 @@ window.addEventListener("drop",function(e){
             <label for="input_duplicate_eps">Hash threshold for duplicate detection</label>
           </td>
           <td style="border:none; max-width:90px; ">
-            <input id ="input_duplicate_eps" type="text" value="1e-8" style="text-align: center;" disabled="disabled">
+            <input id ="input_duplicate_eps" type="text" value="1e-8" style="text-align: center;">
           </td>
         </tr>
         <tr>

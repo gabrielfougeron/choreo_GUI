@@ -587,6 +587,9 @@ function GatherConfigDict() {
     ConfigDict['Phys_Random'] ['k_infl']            = parseInt(  document.getElementById('input_k_infl'         ).value,10)
     ConfigDict['Phys_Random'] ['k_max']             = parseInt(  document.getElementById('input_k_max'          ).value,10)
 
+    ConfigDict['Phys_Random'] ['init_pos_BB_size']  = parseFloat(document.getElementById('init_pos_BB_size'     ).value)
+    ConfigDict['Phys_Random'] ['init_mom_BB_size']  = parseFloat(document.getElementById('init_mom_BB_size'     ).value)
+
     ConfigDict['Phys_Inter'] = {}
     ConfigDict['Phys_Inter'] ['inter_pow']          = parseFloat(document.getElementById('inter_pow'            ).value   )
     ConfigDict['Phys_Inter'] ['inter_pm']           = document.getElementById('inter_pm').value
@@ -614,10 +617,15 @@ function GatherConfigDict() {
     ConfigDict['Animation_Search'] ['DisplayLoopOnGalleryLoad']  = document.getElementById('checkbox_DisplayLoopOnGalleryLoad').checked
 
     ConfigDict['Solver_Discr'] = {}
-    ConfigDict['Solver_Discr'] ['Use_exact_Jacobian']  = document.getElementById('checkbox_exactJ').checked
-    ConfigDict['Solver_Discr'] ['nint_init']           = parseInt(document.getElementById('input_nint_init').value,10)
-    ConfigDict['Solver_Discr'] ['n_reconverge_it_max'] = parseInt(document.getElementById('input_n_reconverge_it_max').value,10)
-    ConfigDict['Solver_Discr'] ['mul_coarse_to_fine']  = parseFloat(document.getElementById('input_mul_coarse_to_fine').value)
+    ConfigDict['Solver_Discr'] ['SolverType']           = document.getElementById('SolverType_menu').value
+    ConfigDict['Solver_Discr'] ['RK_method']            = document.getElementById('RK_method').value
+    ConfigDict['Solver_Discr'] ['rk_nsteps']            = parseInt(document.getElementById('rk_nsteps').value,10)            
+    ConfigDict['Solver_Discr'] ['pos_mom_scaling']      = parseFloat(document.getElementById('pos_mom_scaling').value)
+
+    ConfigDict['Solver_Discr'] ['Use_exact_Jacobian']   = document.getElementById('checkbox_exactJ').checked
+    ConfigDict['Solver_Discr'] ['nint_init']            = parseInt(document.getElementById('input_nint_init').value,10)
+    ConfigDict['Solver_Discr'] ['n_reconverge_it_max']  = parseInt(document.getElementById('input_n_reconverge_it_max').value,10)
+    ConfigDict['Solver_Discr'] ['mul_coarse_to_fine']   = parseFloat(document.getElementById('input_mul_coarse_to_fine').value)
 
     ConfigDict['Solver_Optim'] = {}
     ConfigDict['Solver_Optim'] ['n_opt']    = parseInt(document.getElementById('input_Num_retries').value)
@@ -773,7 +781,10 @@ function LoadConfigDict(ConfigDict) {
     document.getElementById('input_coeff_ampl_o'   ).value = ConfigDict['Phys_Random'] ['coeff_ampl_o']   
     document.getElementById('input_coeff_ampl_min' ).value = ConfigDict['Phys_Random'] ['coeff_ampl_min'] 
     document.getElementById('input_k_infl'         ).value = ConfigDict['Phys_Random'] ['k_infl']         
-    document.getElementById('input_k_max'          ).value = ConfigDict['Phys_Random'] ['k_max']        
+    document.getElementById('input_k_max'          ).value = ConfigDict['Phys_Random'] ['k_max']  
+
+    document.getElementById('init_pos_BB_size'     ).value = ConfigDict['Phys_Random'] ['init_pos_BB_size']        
+    document.getElementById('init_mom_BB_size'     ).value = ConfigDict['Phys_Random'] ['init_mom_BB_size']        
     
     document.getElementById('inter_pow'            ).value = ConfigDict['Phys_Inter'] ['inter_pow']
     document.getElementById('inter_pm'             ).value = ConfigDict['Phys_Inter'] ['inter_pm']   
@@ -819,10 +830,15 @@ function LoadConfigDict(ConfigDict) {
     document.getElementById('checkbox_DisplayBodiesDuringSearch').checked = ConfigDict['Animation_Search'] ['DisplayBodiesDuringSearch']
     document.getElementById('checkbox_DisplayLoopOnGalleryLoad').checked  = ConfigDict['Animation_Search'] ['DisplayLoopOnGalleryLoad']
 
-    document.getElementById('checkbox_exactJ').checked         = ConfigDict['Solver_Discr'] ['Use_exact_Jacobian']  
-    document.getElementById('input_nint_init').value           = ConfigDict['Solver_Discr'] ['nint_init']         
-    document.getElementById('input_n_reconverge_it_max').value = ConfigDict['Solver_Discr'] ['n_reconverge_it_max'] 
-    document.getElementById('input_mul_coarse_to_fine').value  = ConfigDict['Solver_Discr'] ['mul_coarse_to_fine']
+    document.getElementById('SolverType_menu').value            = ConfigDict['Solver_Discr'] ['SolverType']
+    document.getElementById('RK_method').value                  = ConfigDict['Solver_Discr'] ['RK_method']
+    document.getElementById('rk_nsteps').value                  = ConfigDict['Solver_Discr'] ['rk_nsteps']
+    document.getElementById('pos_mom_scaling').value            = ConfigDict['Solver_Discr'] ['pos_mom_scaling']
+
+    document.getElementById('checkbox_exactJ').checked          = ConfigDict['Solver_Discr'] ['Use_exact_Jacobian']  
+    document.getElementById('input_nint_init').value            = ConfigDict['Solver_Discr'] ['nint_init']         
+    document.getElementById('input_n_reconverge_it_max').value  = ConfigDict['Solver_Discr'] ['n_reconverge_it_max'] 
+    document.getElementById('input_mul_coarse_to_fine').value   = ConfigDict['Solver_Discr'] ['mul_coarse_to_fine']
 
     SlideNReconvergeItMax();
 

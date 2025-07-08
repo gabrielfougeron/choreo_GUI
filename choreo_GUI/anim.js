@@ -1155,7 +1155,8 @@ function canvasApp() {
 					ip_end = irem_end
 				}
 				
-				TimeRev = (PlotInfo["InterSegmTimeRev"][ib][iint_min] > 0)
+				// TimeRev = (PlotInfo["InterSegmTimeRev"][ib][iint_min] > 0)
+				TimeRev = (PlotInfo["TimeRev"] > 0) || (iint_min % 2 == 0)
 
 				for (ip = ip_beg; ip < ip_end; ip++){
 
@@ -1285,8 +1286,9 @@ function canvasApp() {
 
 			isegmm = PlotInfo['bodysegm'][ib][iint_minm]
 			iom = segm_store * isegmm * 2
-						
-			if (PlotInfo["InterSegmTimeRev"][ib][iint_minm] > 0) {
+
+			// if (PlotInfo["InterSegmTimeRev"][ib][iint_minm] > 0) {
+			if ((PlotInfo["TimeRev"] > 0) || (iint_minm % 2 == 0)) {
 				iim = iom + 2*im
 			} else {
 				iim = iom + 2*(segm_size-im)
@@ -1298,7 +1300,8 @@ function canvasApp() {
 			isegmp = PlotInfo['bodysegm'][ib][iint_minp]
 			iop = segm_store * isegmp * 2
 	
-			if (PlotInfo["InterSegmTimeRev"][ib][iint_minp] > 0) {
+			// if (PlotInfo["InterSegmTimeRev"][ib][iint_minp] > 0) {
+			if ((PlotInfo["TimeRev"] > 0) || (iint_minp % 2 == 0)) {
 				iip = iop + 2*ip
 			} else {
 				iip = iop + 2*(segm_size-ip)
