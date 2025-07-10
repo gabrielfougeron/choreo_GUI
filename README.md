@@ -1,26 +1,9 @@
-# choreo
-Finds periodic solutions to the gravitational N-body problem. 
+# choreo_GUI
+This is the sister project to **choreo**, a Python package aiming at finding periodic solutions to the gravitational N-body problem. **choreo-GUI** is a Graphical User Interface (GUI) to **choreo**, facilitating the process of setting up the optimization procedure, and providing means to visualize solutions. Thanks to [Pyodide](https://pyodide.org/en/stable/), the solver can be launched directly in the browser.
 
 ## Try out this project, no installation required!
 
 Check out the online in-browser GUI: https://gabrielfougeron.github.io/choreo/
-
-## Build wheel for pyodide to be used in GUI
-
-After sourcing emsdk environment, run the following:
-
-```
-pyodide build && python -m build --sdist
-```
-
-## Install the package with pip
-
-The package is not available on PyPA yet, but will be in the future.
-Till then, the installation process is the following:
-
- - Download this project. For instance using git: `git clone git@github.com:gabrielfougeron/choreo.git`
- - Open the directory: `cd choreo`
- - Build and install using pip: `pip install .`
 
 ## Power up the GUI solver with the CLI backend
 Using clang or gcc as a C compiler, the single-threaded CLI solver is about 3 times faster that the wasm in-browser GUI solver. In addition, several independent single-threaded solvers can be launched simultaneously using a single command.
