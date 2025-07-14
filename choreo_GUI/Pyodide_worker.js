@@ -19,7 +19,8 @@ importScripts("assets/js/LoadLocalOrCDN.js")
 if (IsLocal) {
     importScripts("assets/pyodide/pyodide.js")
 } else {
-    importScripts("https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.js")
+    importScripts("https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js")
+    // importScripts("https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.js")
 }
 
 async function loadPyodideAndPackages() {
@@ -41,8 +42,8 @@ async function loadPyodideAndPackages() {
         "mpmath",
         "scipy",
         "threadpoolctl",
-        // "./python_dist/choreo-1.0.0-cp312-cp312-pyodide_2024_0_wasm32.whl",
-        "./python_dist/choreo-1.0.0-cp313-cp313-pyodide_2025_0_wasm32.whl",
+        "./python_dist/choreo-1.0.0-cp312-cp312-pyodide_2024_0_wasm32.whl",
+        // "./python_dist/choreo-1.0.0-cp313-cp313-pyodide_2025_0_wasm32.whl",
     ])
 
 }
