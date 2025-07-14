@@ -19,8 +19,9 @@ importScripts("assets/js/LoadLocalOrCDN.js")
 if (IsLocal) {
     importScripts("assets/pyodide/pyodide.js")
 } else {
-    importScripts("https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js")
-    // importScripts("https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.js")
+    importScripts("https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js")
+    // importScripts("https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js")    // Wrong scipy version here
+    // importScripts("https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.js")    // Wrong scipy version here
 }
 
 async function loadPyodideAndPackages() {
