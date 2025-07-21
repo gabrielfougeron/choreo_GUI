@@ -369,7 +369,6 @@ async function ChoreoExecuteClick() {
         var ConfigDict = GatherConfigDict()
         pyodide_worker.postMessage({funname:"LoadDataInWorker",args:{ConfigDict:ConfigDict}})
 
-
         if (WorkspaceIsSetUp) {
             ClickReloadWorkspace(ConfigDict)
         }
@@ -1826,6 +1825,17 @@ async function SaveOneTargetFile(basename,filename,The_PlotInfo,The_Pos) {
 
 }
 
+function SortJSObject(js_kv_object) {
+
+    return Object.keys(js_kv_object).sort().reduce(
+        (obj, key) => { 
+            obj[key] = js_kv_object[key]; 
+            return obj;
+        }, 
+        {}
+    )
+}
+
 async function MakeDirectoryTree_Workspace(cur_directory,cur_treenode,click_callback) {
 
     var files_here = {}
@@ -1861,6 +1871,8 @@ async function MakeDirectoryTree_Workspace(cur_directory,cur_treenode,click_call
         }
 
     }
+
+    files_here = SortJSObject(files_here)
 
     for (const basename in files_here) {
 
